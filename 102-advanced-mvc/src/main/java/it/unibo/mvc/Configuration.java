@@ -1,6 +1,5 @@
 package it.unibo.mvc;
 
-
 /**
  * Encapsulates the concept of configuration.
  */
@@ -41,6 +40,7 @@ public final class Configuration {
      * @return true if the configuration is consistent
      */
     public boolean isConsistent() {
+        System.out.println(this);
         return attempts > 0 && min < max;
     }
 
@@ -102,13 +102,33 @@ public final class Configuration {
         /**
          * @return a configuration
          */
-        public final Configuration build() {
+        public final Configuration build(final int min, final int max, final int attempts) {
             if (consumed) {
                 throw new IllegalStateException("The builder can only be used once");
             }
             consumed = true;
+            this.min = min;
+            this.max = max;
+            this.attempts = attempts;
+            
             return new Configuration(max, min, attempts);
         }
+
+        @Override
+        public String toString() {
+          
+            return "min-> " + this.min + ",\n "
+                + "max-> " + this.max + ",\n "
+                + "attempts-> " + this.attempts + ",\n ";
+        }
+    }
+
+    @Override
+    public String toString() {
+      
+        return "min-> " + this.min + ",\n"
+            + "max-> " + this.max + ",\n"
+            + "attempts-> " + this.attempts + ",\n";
     }
 }
 
